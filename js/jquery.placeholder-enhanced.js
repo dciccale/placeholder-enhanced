@@ -37,18 +37,6 @@
 		var e = $(this),
         	d = e.attr("placeholder");
         
-        // if is empty on load, fill it with placeholder value
-        if (e.val() === "") {
-		
-			// add placeholder class
-			e.addClass(c);
-			
-			// set value for supporting older browsers
-			if(!hasNativeSupport) {
-				e.val(d);
-			}
-        }
-        
         // attach events
         e.bind("focus.placeholder", function () {
         	if(!hasNativeSupport) {
@@ -61,9 +49,9 @@
         		e.removeClass(c);
         	}
         })
-    	.bind("blur.placeholder",function () {
+    	.bind("blur.placeholder", function () {
         	if(!hasNativeSupport) {
-	            if (e.val() === "") {
+	            if (e.val() === "" || e.val() === d) {
 	        		e.val(d);
 	        		e.addClass(c);
 	            }
@@ -71,7 +59,7 @@
         	else if (!e.val()){
         		e.addClass(c);
         	}
-        });
+        }).trigger("blur.placeholder");
     }
     
 	// only for browser that don't support placeholder

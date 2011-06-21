@@ -14,6 +14,7 @@ strong{font-weight:bold}
 .separator {overflow:hidden;height:25px;margin-bottom:25px;border-bottom:1px solid #999;clear:left}
 #submit {margin:0}
 #submit input {padding:5px 15px;border:2px solid grey;font-size:14px;cursor:pointer;background-color:#ccc;color:#333;font-weight:bold}
+input,textarea {font-family:verdana;font-size:0.85em}
 
 /* style placeholder */
 .placeholder {color:#999; font-style:italic}
