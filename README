@@ -10,7 +10,6 @@ What this plugin does:
 What's next:
 
 - Code organize to easily customize settings
-- Add support for password input type
 - May be check if the browser supports native css styling:
 
 /* webkit */
