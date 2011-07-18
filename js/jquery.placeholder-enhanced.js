@@ -16,8 +16,6 @@
 			// if browser supports placeholder attribute, use native events to show/hide placeholder
 			hasNativeSupport = c in document.createElement("input");
         
-		hasNativeSupport = false;
-		
         // ensure not sending placeholder value when placeholder is not supported
         if (!hasNativeSupport) {
         	$('form').submit(function() {
@@ -89,7 +87,7 @@
 					var inputCssClass = (e[0].className) ? ' ' + e[0].className : '';
 				
 					// create input
-					var pwdummy = $('<input type="text" class="pwdummy ' + c + inputCssClass + '" value="' + d + '" />');
+					var pwdummy = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '" />');
 					
 					// insert placeholder input next to password input
 					e.after(pwdummy);
