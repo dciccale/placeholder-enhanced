@@ -15,7 +15,7 @@
 			c = "placeholder",
 			// if browser supports placeholder attribute, use native events to show/hide placeholder
 			hasNativeSupport = c in document.createElement("input");
-
+			
 		// ensure not sending placeholder value when placeholder is not supported
 		if (!hasNativeSupport) {
 			$('form').submit(function() {
@@ -47,8 +47,8 @@
 			};
 
 			// on blur
-			var placeholderOnBlur = function (event, placeholderIsFirstLoad) {
-				if(!e.val() || placeholderIsFirstLoad) {
+			var placeholderOnBlur = function (event, forceInit) {
+				if(!e.val() || forceInit) {
 					if(!hasNativeSupport) {
 						if(!ispassword) {
 							e.addClass(c).val(d);
@@ -75,30 +75,25 @@
 			};
 
 			// placeholder for text and textarea
-			if(!ispassword) {
+			if(!ispassword || hasNativeSupport) {
 				e.bind('focus.placeholder', placeholderOnFocus);
 			}
 
 			// placeholder for password
 			else {
-				if (!hasNativeSupport) {
-					var inputCssClass = (e[0].className) ? ' ' + e[0].className : '';
+				var inputCssClass = (e[0].className) ? ' ' + e[0].className : '';
+			
+				// create input
+				var pwdummy = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '" />');
 				
-					// create input
-					var pwdummy = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '" />');
-					
-					// insert placeholder input next to password input
-					e.after(pwdummy);
-					
-					// Dummy text input focus event
-					pwdummy.bind('focus.placeholder', function () {
-						showInput(e).focus();
-						hideInput(pwdummy);
-					});
-				}
-				else {
-					e.bind('focus.placeholder', placeholderOnFocus);
-				}
+				// insert the input before the password input so we can focus using tab key
+				e.before(pwdummy);
+				
+				// Dummy text input focus event
+				pwdummy.bind('focus.placeholder', function () {
+					showInput(e).focus();
+					hideInput(pwdummy);
+				});
 			}
 			
 			// bind blur event and trigger on load
