@@ -113,7 +113,7 @@
 	
 	// init the plugin
     $(function () {
-        var placeholderElements = $('input:text[placeholder], input:password[placeholder], textarea[placeholder]');
+        var placeholderElements = $('input:text[placeholder], input:password[placeholder], textarea[placeholder], input:email[placeholder], input:url[placeholder], input:number[placeholder], input:search[placeholder], input:color[placeholder], input:date[placeholder]');
         
         // if there are placeholder elements
         if(placeholderElements.length) {
