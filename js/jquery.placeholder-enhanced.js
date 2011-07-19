@@ -15,29 +15,27 @@
 			c = "placeholder",
 			// if browser supports placeholder attribute, use native events to show/hide placeholder
 			hasNativeSupport = c in document.createElement("input");
-        
-        // ensure not sending placeholder value when placeholder is not supported
-        if (!hasNativeSupport) {
-        	$('form').submit(function() {
+
+		// ensure not sending placeholder value when placeholder is not supported
+		if (!hasNativeSupport) {
+			$('form').submit(function() {
 				// form
 				var $this = $(this);
 				
 				// empty input value if is the same as the placeholder attribute
-				$this.find('input:text[placeholder], textarea[placeholder]').each(function () {
+				$this.find('input[placeholder], textarea[placeholder]').each(function () {
 					var e = $(this);
 					if (e.val() === e.attr('placeholder')) {
 						e.val('');
 					}
 				});
 			});
-        }
-		
-		
-		
+		}
+
 		return this.each(function () {
-		
+
 			var e = $(this), d = e.attr("placeholder"), ispassword = e.attr('type') === "password";
-				
+
 			// on focus
 			var placeholderOnFocus = function () {
 				if(e.hasClass(c)) {
@@ -47,7 +45,7 @@
 					e.removeClass(c);
 				}
 			};
-			
+
 			// on blur
 			var placeholderOnBlur = function (event, placeholderIsFirstLoad) {
 				if(!e.val() || placeholderIsFirstLoad) {
@@ -65,22 +63,22 @@
 					}
 				}
 			};
-			
+
 			// hides password input
 			var hideInput = function(e) {
 				e.css({position: 'absolute', left: '-9999em'});
 			};
-			
+
 			// shows dummy text input
 			var showInput = function(e) {
 				return e.removeAttr('style');
 			};
-				
+
 			// placeholder for text and textarea
 			if(!ispassword) {
 				e.bind('focus.placeholder', placeholderOnFocus);
 			}
-			
+
 			// placeholder for password
 			else {
 				if (!hasNativeSupport) {
@@ -112,11 +110,11 @@
 	};
 	
 	// init the plugin
-    $(function () {
-        var placeholderElements = $('input:text[placeholder], input:password[placeholder], textarea[placeholder], input:email[placeholder], input:url[placeholder], input:number[placeholder], input:search[placeholder], input:color[placeholder], input:date[placeholder]');
-        
-        // if there are placeholder elements
-        if(placeholderElements.length) {
+	$(function () {
+		var placeholderElements = $('input[placeholder], textarea[placeholder]');
+		
+		// if there are placeholder elements
+		if(placeholderElements.length) {
 			// init placeholder plugin
 			placeholderElements.placeholderEnhanced();
 		}
