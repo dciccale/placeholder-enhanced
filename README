@@ -1,13 +1,13 @@
-This is another jQuery Placeholder plugin, but this one is enhanced.
+This is the Enhanced jQuery Placeholder plugin.
 
-What this plugin does:
+Features:
 
-- Cross-browser placeholder html5 attribute
-- Styling color of placeholder text in all browser, but letting native placeholder focus/blur event if supported
+- Cross-browser & Cross-styling placeholder HTML5 attribute
+- Support for password, textarea, text, email, search, url.
 
 
 
-What's next:
+What's next?
 
 - Code organize to easily customize settings
 - May be check if the browser supports native css styling:
