@@ -18,6 +18,7 @@
 			
 			
 			// extra check for Opera: Opera 11 supports placeholder only for input, and you cannot style it yet, even with a class you can't.
+			// http://my.opera.com/ODIN/blog/2010/12/17/new-html5-features-in-opera-11
 			// http://dev.opera.com/forums/topic/841252?t=1296553904&page=1#comment8072202
 			// this is fixed for version 11.50
 			hasNativeSupport = $.browser.opera && $.browser.version >= '11.50';
