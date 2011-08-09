@@ -1,4 +1,4 @@
-/*! jQuery Placeholder Enhanced
+/* jQuery Placeholder Enhanced
 * ----------------------------------------------------------
 * Author: Denis Ciccale (dciccale@gmail.com)
 * Password support by Gabriel Birke (gabriel.birke@gmail.com) & optimized by Denis Ciccale 
@@ -15,6 +15,12 @@
 			c = "placeholder",
 			// if browser supports placeholder attribute, use native events to show/hide placeholder
 			hasNativeSupport = c in document.createElement("input");
+			
+			
+			// extra check for Opera: Opera 11 supports placeholder only for input, and you cannot style it yet, even with a class you can't.
+			// http://dev.opera.com/forums/topic/841252?t=1296553904&page=1#comment8072202
+			// this is fixed for version 11.50
+			hasNativeSupport = $.browser.opera && $.browser.version >= '11.50';
 			
 		// ensure not sending placeholder value when placeholder is not supported
 		if (!hasNativeSupport) {
