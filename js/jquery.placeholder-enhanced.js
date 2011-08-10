@@ -54,8 +54,10 @@
 			};
 
 			// on blur
-			var placeholderOnBlur = function (event, forceInit) {
-				if(!e.val() || forceInit) {
+			var placeholderOnBlur = function (event) {
+				// if there is no initial value
+				// or initial value is equal to placeholder, init the placeholder
+				if(!e.val() || e.val() === d) {
 					if(!hasNativeSupport) {
 						if(!ispassword) {
 							e.addClass(c).val(d);
@@ -105,7 +107,7 @@
 			
 			// bind blur event and trigger on load
 			e.bind('blur.placeholder', placeholderOnBlur)
-			.trigger('blur.placeholder', [true]);
+			.trigger('blur.placeholder');
 		
 		});
 	
