@@ -10,8 +10,11 @@
 (function ($) {
 		
 	$.fn.placeholderEnhanced = function() {
+	
+		// don't act on absent elements
+		if(!this.length) return;
 		
-		var // placeholder css class
+		var // placeholder css class (if you change the class name, be sure to change the c below to "placeholder")
 			c = "placeholder",
 			// if browser supports placeholder attribute, use native events to show/hide placeholder
 			hasNativeSupport = c in document.createElement("input");
@@ -21,7 +24,7 @@
 			// http://my.opera.com/ODIN/blog/2010/12/17/new-html5-features-in-opera-11
 			// http://dev.opera.com/forums/topic/841252?t=1296553904&page=1#comment8072202
 			// this is fixed for version 11.50
-			hasNativeSupport = $.browser.opera && $.browser.version >= '11.50';
+			if($.browser.opera && $.browser.version < '11.50') hasNativeSupport = false;
 			
 		// ensure not sending placeholder value when placeholder is not supported
 		if (!hasNativeSupport) {
@@ -110,17 +113,24 @@
 			.trigger('blur.placeholder');
 		
 		});
-	
 	};
 	
-	// init the plugin
+	// auto-initialize the plugin
 	$(function () {
-		var placeholderElements = $('input[placeholder], textarea[placeholder]');
-		
-		// if there are placeholder elements
-		if(placeholderElements.length) {
-			// init placeholder plugin
-			placeholderElements.placeholderEnhanced();
-		}
+		$('input[placeholder], textarea[placeholder]').placeholderEnhanced();
     });
+	
+	// if placeholder is not supported, the jQuery val function returns the placeholder
+	// redefine the val function to fix this
+	var hasNativeSupport = "placeholder" in document.createElement("input");
+	if($.browser.opera && $.browser.version < '11.50') hasNativeSupport = false;
+	if(!hasNativeSupport) {
+		var jQval = $.fn.val;
+		$.fn.val = function (value) {
+			if (!arguments.length) {
+				return $(this).attr("value") === $(this).attr("placeholder") ? "" : $(this).attr("value");
+			}
+			return jQval.call(this, value);
+		};
+	}
 })(jQuery);
