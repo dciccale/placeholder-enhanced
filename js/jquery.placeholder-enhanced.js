@@ -93,17 +93,22 @@
 
 			// placeholder for password
 			else {
+				// get class from the original input if any (to keep any styling)
 				var inputCssClass = (e[0].className) ? ' ' + e[0].className : '';
 			
-				// create input
-				var pwdummy = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '" />');
+				// create input with tabindex="-1" to skip tabbing
+				var pwdummy = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '" tabindex="-1" />');
 				
-				// insert the input before the password input so we can focus using tab key
-				e.before(pwdummy);
+				// trigger password focus when focus is on text input
+				pwdummy.bind('focus.placeholder', function() {
+					e.trigger('focus.placeholder');
+				});
 				
-				// Dummy text input focus event
-				pwdummy.bind('focus.placeholder', function () {
-					showInput(e).focus();
+				// insert the text input
+				e.before(pwdummy)
+				// focus event to show the real password input
+				.bind('focus.placeholder', function() {
+					showInput(e);
 					hideInput(pwdummy);
 				});
 			}
