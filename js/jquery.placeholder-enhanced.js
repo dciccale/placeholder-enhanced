@@ -35,7 +35,7 @@
 				// empty input value if is the same as the placeholder attribute
 				$this.find('input[placeholder], textarea[placeholder]').each(function () {
 					var e = $(this);
-					if (e.val() === e.attr('placeholder')) {
+					if (e.attr('value') === e.attr('placeholder')) {
 						e.val('');
 					}
 				});
