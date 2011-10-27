@@ -95,9 +95,15 @@
 			else {
 				// get class from the original input if any (to keep any styling)
 				var inputCssClass = (e[0].className) ? ' ' + e[0].className : '';
+				var size = '';
+
+				// ie9 patch
+				if ( e[0].size && e[0].size > 0 ) {
+					size = 'size="' + e[0].size + "'";
+				}
 			
 				// create input with tabindex="-1" to skip tabbing
-				var pwdummy = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '" tabindex="-1" />');
+				var pwdummy = $('<input type="text" class="' + c + inputCssClass + '" value="' + d + '"' + size + ' tabindex="-1" />');
 				
 				// trigger password focus when focus is on text input
 				pwdummy.bind('focus.placeholder', function() {
