@@ -83,7 +83,7 @@
 
 			// shows dummy text input
 			var showInput = function(e) {
-				return e.removeAttr('style');
+				e.css({position: '', left: ''});
 			};
 
 			// placeholder for text and textarea
