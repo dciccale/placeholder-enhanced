@@ -1,41 +1,43 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>jQuery Placeholder Enhanced - Demo</title>
-		<link href="css/demo.css" rel="stylesheet" type="text/css" media="screen" />
-	</head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>jQuery Placeholder Enhanced - Demo</title>
+<link href="css/demo.css" rel="stylesheet" type="text/css" media="screen" />
+<!-- latest jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<!-- jQuery Placeholder Enhanced plugin -->
+<script src="js/jquery.placeholder-enhanced.js"></script>
+<!-- show form submitted data -->
+<script>
+  $(function () {
+    var form = $('#form'),
+      result = $('#result');
 
-	<body>
-		<a href="http://github.com/dciccale/placeholder-enhanced"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-		<h1>jQuery Placeholder Enhanced</h1>
-		
-		<div id="content">
-			<div id="view" class="section">
-				<form method="post" action="" id="form">
-				
-					<p><input type="text" name="text" id="text" placeholder="Insert text here" /></p>
-					<p><input type="email" name="email" id="email" placeholder="Insert email here" /></p>
-					<p><input type="url" name="url" id="url" placeholder="Insert url here" /></p>
-					<p><input type="search" name="search" id="search" placeholder="Search" /></p>
-					<p><textarea cols="50" rows="3" name="textarea" id="textarea" placeholder="Write your comments here"></textarea></p>
-          <p><input type="password" name="password" id="password" placeholder="Type password here" /></p>
-          <p>Setting size attribute on password also works fine for unsupported browsers</p>
-					<p><input type="password" name="passwordsize" id="passwordsize" size="55" placeholder="Type password here (size)" /></p>
-					
-					<div class="separator"></div>
-					
-					<p id="submit"><input type="submit" value="Send" /></p>
-				</form>
-				<p><strong>Form result:</strong> <span id="result"></span></p>
-			</div>
-		</div>
-		
-		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-		<script type="text/javascript">window.jQuery || document.write('<script src="js/jquery.min.js" type="text/javascript">\x3C/script>')</script>
-		<script src="js/jquery.placeholder-enhanced.js"></script>
-		<script src="js/demo.js"></script>
-	</body>
-</html>
+    form.on('submit', function (ev) {
+      ev.preventDefault();
+      result.html(form.serialize());
+    });
+  });
+</script>
+
+<a href="http://github.com/dciccale/placeholder-enhanced"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+
+<h1>jQuery Placeholder Enhanced</h1>
+<div id="content">
+  <div id="view" class="section">
+    <form method="post" id="form">
+      <p><input type="text" name="text" id="text" placeholder="Insert text here" /></p>
+      <p><input type="email" name="email" id="email" placeholder="Insert email here" /></p>
+      <p><input type="url" name="url" id="url" placeholder="Insert url here" /></p>
+      <p><input type="search" name="search" id="search" placeholder="Search" /></p>
+      <p><textarea cols="50" rows="3" name="textarea" id="textarea" placeholder="Write your comments here"></textarea></p>
+      <p><input type="password" name="password" id="password" placeholder="Type password here" /></p>
+      <p>Setting size attribute on password also works fine for unsupported browsers</p>
+      <p><input type="password" name="passwordSize" id="passwordSize" size="55" placeholder="Type password here" /></p>
+
+      <div class="separator"></div>
+
+      <p id="submit"><input type="submit" value="Send" /></p>
+    </form>
+    <p><strong>Form result:</strong> <span id="result"></span></p>
+  </div>
+</div>
