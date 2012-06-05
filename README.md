@@ -1,4 +1,4 @@
-# jQuery Placeholder
+# jQuery Placeholder Enhanced
 
 ### This is the Enhanced jQuery Placeholder plugin
 
@@ -7,12 +7,12 @@
 - Cross-browser & Cross-styling placeholder HTML5 attribute
 - Support for password, textarea, text, email, search, url, etc...
 
-## You could also style placeholder in Webkit and FireFox 4+ with the following CSS:
+### You could also style placeholder in Webkit and FireFox 4+ with the following CSS:
 
-´´´css
+```css
 /* webkit */
 ::-webkit-input-placeholder { color:#999 }
 
 /* mozilla */
 :-moz-placeholder { color: #999 }
-´´´
+```
