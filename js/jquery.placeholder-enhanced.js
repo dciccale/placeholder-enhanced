@@ -20,7 +20,7 @@
       c = "placeholder",
       // if browser supports placeholder attribute, use native events to show/hide placeholder
       hasNativeSupport = c in document.createElement("input") && c in document.createElement("textarea");
-
+      hasNativeSupport = false;
     // ensure not sending placeholder value when placeholder is not supported
     if (!hasNativeSupport) {
       $('form').submit(function () {
@@ -121,14 +121,14 @@
   // redefine the val function to fix this
   var hasNativeSupport = "placeholder" in document.createElement("input") && "placeholder" in document.createElement("textarea"),
     $val;
-
+    hasNativeSupport = false;
   if (!hasNativeSupport) {
     $val = $.fn.val;
-    $.fn.val = function (value) {
-      if (!arguments.length) {
-        return $(this).attr("value") === $(this).attr("placeholder") ? "" : $(this).attr("value");
+    $.fn.val = function () {
+      if (!arguments.length && (this[0].nodeName === 'INPUT' || this[0].nodeName === 'TEXTAREA')) {
+        return this.attr("value") === this.attr("placeholder") ? "" : this.attr("value");
       }
-      return $val.call(this, value);
+      return $val.apply(this, arguments);
     };
   }
 }(jQuery));
