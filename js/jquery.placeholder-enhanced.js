@@ -1,12 +1,8 @@
-/* jQuery Placeholder Enhanced
-*
-* by Denis Ciccale (@tdecs)
-* Password support by Gabriel Birke (gabriel.birke@gmail.com)
-*
-* Dual licensed under the MIT and GPL licenses:
-* http://www.opensource.org/licenses/mit-license.php
-* http://www.gnu.org/licenses/gpl.html
-*/
+/*!
+ * jQuery Placeholder Enhanced 1.0
+ * Copyright (c) 2012 Denis Ciccale (@tdecs)
+ * Released under MIT license (https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
+ */
 (function ($) {
 
   $.fn.placeholderEnhanced = function () {
