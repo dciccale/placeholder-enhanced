@@ -1,0 +1,14 @@
+/* Required CSS
+   you may change the name of the class
+*/
+
+/* used by the plugin */
+.placeholder {
+  color:#aaa;
+}
+
+/* webkit */
+::-webkit-input-placeholder { color: #aaa }
+
+/* mozilla */
+:-moz-placeholder { color: #aaa }
