@@ -37,18 +37,12 @@ $(function () {
 })
 ```
 
+### CSS
+Customize the style of the placeholder with CSS
+See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/blob/master/css/placeholder-enhanced.css)
+
 ## Demo
 For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) [online](http://dciccale.github.com/placeholder-enhanced/)
-
-### You could also style placeholder in Webkit and FireFox 4+ with the following CSS:
-
-```css
-/* webkit */
-::-webkit-input-placeholder { color: #999 }
-
-/* mozilla */
-:-moz-placeholder { color: #999 }
-```
 
 ## License
 See [LICENSE.txt](https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
