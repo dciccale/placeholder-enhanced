@@ -1,8 +1,8 @@
- /*!
-  * jQuery Placeholder Enhanced 2.0 beta
-  * Copyright (c) 2012 Denis Ciccale (@tdecs)
-  * Released under MIT license (https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
-  */
+/*!
+ * jQuery Placeholder Enhanced 2.0 beta
+ * Copyright (c) 2012 Denis Ciccale (@tdecs)
+ * Released under MIT license (https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
+ */
 (function ($, document) {
 
   var pluginName = 'placeholderEnhanced',
