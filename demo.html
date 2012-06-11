@@ -18,6 +18,8 @@
     form.on('submit', function (ev) {
       ev.preventDefault();
       result.html(form.serialize());
+      // only for demo (refresh placeholders)
+      $(this).find("input[placeholder], textarea[placeholder]").blur();
     });
   });
 </script>
