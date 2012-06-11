@@ -1,4 +1,4 @@
-# jQuery Placeholder Enhanced
+# jQuery Placeholder Enhanced 1.1
 
 ### This is the Enhanced jQuery Placeholder plugin
 
