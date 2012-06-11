@@ -4,8 +4,9 @@
 
 ## Features
 
-- Cross-browser & Cross-styling placeholder HTML5 attribute
+- Cross-browser & Cross-styling HTML5 placeholder attribute
 - Support for password, textarea, text, email, search, url, etc...
+- Lightweight: **618 bytes** compressed & gzipped
 
 ## Usage
 
