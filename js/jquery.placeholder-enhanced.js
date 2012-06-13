@@ -14,6 +14,9 @@
   if (!hasNativeSupport) {
     $val = $.fn.val;
     $.fn.val = function () {
+      if (!this.length) {
+        return;
+      }
       if (!arguments.length && (this[0].nodeName === 'INPUT' || this[0].nodeName === 'TEXTAREA')) {
         return this.attr('value') === this.attr('placeholder') ? '' : this.attr('value');
       }
