@@ -12,6 +12,23 @@
     hasNativeSupport = 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'),
     $val = $.fn.val;
 
+  // if placeholder is not supported, the jQuery val function returns the placeholder
+  // wrap the jQuery val function to fix this
+  if (!hasNativeSupport) {
+    $.fn.val = function (value) {
+      if (!this.length) {
+        return;
+      }
+      var placeholderAttr = this.attr('placeholder'), placeholderClass;
+      if (!arguments.length && placeholderAttr) {
+        placeholderClass = $.data(this[0], pluginName).options.className;
+        return this.attr('value') === placeholderAttr && this.hasClass(placeholderClass) ? '' : this.attr('value');
+      } else {
+        return $val.apply(this, arguments);
+      }
+    };
+  }
+
   // constructor
   function PlaceholderEnhanced(element, options) {
     $.data(element, pluginName, this);
@@ -67,40 +84,40 @@
 
     function copyAttrs(element) {
       var attrs = {};
-      $.each(element[0].attributes, function (i, a) {
-        if (a.name !== 'placeholder' && a.name !== 'name') {
-          attrs[a.name] = a.value;
+      $.each(element.attributes, function (i, attr) {
+        if (attr.specified && attr.name !== 'placeholder' && attr.name !== 'name') {
+          attrs[attr.name] = attr.value;
         }
       });
       return attrs;
     }
 
     // placeholder for text and textarea
-    if (!isPassword || this._hasNativeSupport) {
-      this.element.on('focus.placeholder', removePlaceholder);
+    if (!isPassword || self._hasNativeSupport) {
+      self.element.on('focus.placeholder', removePlaceholder);
 
     // placeholder for password
     } else {
       // create input with tabindex="-1" to skip tabbing
-      fakePassword = $('<input>', $.extend(copyAttrs(this.element), {
+      fakePassword = $('<input>', $.extend(copyAttrs(self.element[0]), {
         'type': 'text',
         value: placeholderText,
         tabindex: -1
       }))
-        .addClass(this.options.className);
-
-      // trigger password focus when focus is on text input
-      fakePassword.on('focus.placeholder', function () {
-        self.element.trigger('focus.placeholder');
-      });
+        .addClass(self.options.className)
+        // trigger password focus when focus is on text input
+        .on('focus.placeholder', function () {
+          self.element.trigger('focus.placeholder');
+        })
+        .insertBefore(self.element);
 
       // insert the text input
-      this.element.before(fakePassword).on('focus.placeholder', togglePassword);
+      self.element.on('focus.placeholder', togglePassword);
       togglePassword();
     }
 
     // bind blur event and trigger on load
-    this.element.on('blur.placeholder', setPlaceholder);
+    self.element.on('blur.placeholder', setPlaceholder);
   };
 
   // add the plugin to jQuery
@@ -111,21 +128,6 @@
       }
     });
   };
-
-  if (!hasNativeSupport) {
-    // if placeholder is not supported, the jQuery val function returns the placeholder
-    // wrap the jQuery val function to fix this
-    $.fn.val = function (value) {
-      var placeholderAttr = this.attr('placeholder'), placeholderClass;
-      if (!arguments.length && placeholderAttr) {
-        placeholderClass = $.data(this[0], pluginName).options.className;
-        return this.attr('value') === placeholderAttr && this.hasClass(placeholderClass) ? '' : this.attr('value');
-      } else {
-        return $val.apply(this, arguments);
-      }
-    };
-
-  }
 
   // initialize the plugin
   $(function () {
