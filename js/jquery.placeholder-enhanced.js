@@ -1,5 +1,5 @@
 /*!
- * jQuery Placeholder Enhanced 1.3
+ * jQuery Placeholder Enhanced 1.4
  * Copyright (c) 2012 Denis Ciccale (@tdecs)
  * Released under MIT license (https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
  */
@@ -23,7 +23,7 @@
         return;
       }
       if (!arguments.length && (this[0].nodeName === 'INPUT' || this[0].nodeName === 'TEXTAREA')) {
-        return this[0].value === this[0].placeholder ? '' : this[0].value;
+        return this[0].value === this.attr('placeholder') ? '' : this[0].value;
       }
       return $val.apply(this, arguments);
     };
@@ -44,7 +44,7 @@
       $('form').submit(function () {
         // empty input value if is the same as the placeholder attribute
         $(this).find('input[placeholder], textarea[placeholder]').each(function () {
-          if (this.value === this.placeholder && !this.disabled) {
+          if (!$(this).val() && !this.disabled) {
             this.value = '';
           }
         });
@@ -89,7 +89,7 @@
       function removePlaceholder() {
         if ($el.hasClass(placeholerCssClass)) {
           if (!hasNativeSupport) {
-            $el.val('');
+            el.value = '';
           }
           $el.removeClass(placeholerCssClass);
         }
@@ -98,8 +98,9 @@
       // on blur
       function setPlaceholder() {
         // if there is no initial value
-        // or initial value is equal to placeholder, init the placeholder
-        if (!$el.val() || $el.val() === placeholderTxt) {
+        // or initial value is equal to placeholder (done in the fn.val wrapper)
+        // init the placeholder
+        if (!$el.val()) {
           if (!hasNativeSupport) {
             if (!isPassword) {
               $el.addClass(placeholerCssClass).val(placeholderTxt);
@@ -146,7 +147,7 @@
       $el.bind(events.blur, setPlaceholder).trigger(events.blur);
 
       // mark plugin as initialized
-      $.data(this, pluginName, true);
+      $.data(el, pluginName, true);
     });
   };
 
