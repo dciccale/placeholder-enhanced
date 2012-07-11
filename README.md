@@ -1,4 +1,4 @@
-# jQuery Placeholder Enhanced 1.3
+# jQuery Placeholder Enhanced 1.4
 
 ### This is the Enhanced jQuery Placeholder plugin
 
@@ -6,7 +6,7 @@
 
 - Cross-browser & Cross-styling HTML5 placeholder attribute
 - Support for password, textarea, text, email, search, url, etc...
-- Lightweight: **675 bytes** compressed & gzipped
+- Lightweight: **676 bytes** compressed & gzipped
 
 ## Usage
 
