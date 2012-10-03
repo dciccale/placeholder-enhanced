@@ -120,7 +120,7 @@
 
       // placeholder for textarea and non-password inputs
       if (!isPassword || hasNativeSupport) {
-        $el.on(events.focus, removePlaceholder);
+        $el.bind(events.focus, removePlaceholder);
 
       // placeholder for password
       } else {
@@ -134,21 +134,21 @@
           // add placeholder class
           .addClass(placeholerCssClass)
           // when fakePassw has focus, trigger password focus
-          .on(events.focus, function () {
+          .bind(events.focus, function () {
             $el.trigger(events.focus);
           })
           // insert the fakePassw input
           .insertBefore($el);
 
         // when password input has focus, show the real password input and hide the fakePassw one
-        $el.on(events.focus, function () {
+        $el.bind(events.focus, function () {
           showInput($el);
           hideInput(fakePassw);
         });
       }
 
       // bind blur event and trigger it the first time
-      $el.on(events.blur, setPlaceholder).trigger(events.blur);
+      $el.bind(events.blur, setPlaceholder).trigger(events.blur);
 
       // mark plugin as initialized
       $.data(el, pluginName, true);
