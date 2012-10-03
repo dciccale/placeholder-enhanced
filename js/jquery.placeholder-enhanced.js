@@ -12,6 +12,8 @@
       focus: 'focus.placeholder',
       blur: 'blur.placeholder'
     },
+    // placeholder css class
+    placeholerCssClass = 'placeholder',
     $val;
 
   // if placeholder is not supported, the jQuery val function returns the placeholder
@@ -24,8 +26,13 @@
       }
       if (!arguments.length && (this[0].nodeName === 'INPUT' || this[0].nodeName === 'TEXTAREA')) {
         return this[0].value === this.attr('placeholder') ? '' : this[0].value;
+
+      } else {
+        if (this.hasClass(placeholerCssClass)) {
+          this.removeClass(placeholerCssClass);
+        }
+        return $val.apply(this, arguments);
       }
-      return $val.apply(this, arguments);
     };
   }
 
@@ -35,9 +42,6 @@
     if (!this.length) {
       return;
     }
-
-    // placeholder css class
-    var placeholerCssClass = 'placeholder';
 
     // ensure not sending placeholder value when placeholder is not supported
     if (!hasNativeSupport) {
@@ -103,7 +107,7 @@
         if (!$el.val()) {
           if (!hasNativeSupport) {
             if (!isPassword) {
-              $el.addClass(placeholerCssClass).val(placeholderTxt);
+              $el.val(placeholderTxt).addClass(placeholerCssClass);
             } else {
               showInput(fakePassw);
               hideInput($el);
