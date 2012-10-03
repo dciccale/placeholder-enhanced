@@ -6,7 +6,7 @@
 
 - Cross-browser & Cross-styling HTML5 placeholder attribute
 - Support for password, textarea, text, email, search, url, etc...
-- Lightweight: **685 bytes** compressed & gzipped
+- Lightweight: **681 bytes** compressed & gzipped
 
 ## Usage
 
@@ -44,6 +44,8 @@ See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/
 
 ## Demo
 For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) [online](http://dciccale.github.com/placeholder-enhanced/)
+
+*Requires jQuery 1.4.4 or higher*
 
 ## License
 See [LICENSE.txt](https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
