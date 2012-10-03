@@ -1,13 +1,16 @@
-/* Required CSS
-   you may change the name of the class
-   (remember changing it on the js file also)
+/* 
+  Required CSS
+  you may change the name of the class
+  (remember changing it in the js file too)
 */
 
-/* used by the plugin */
-.placeholder { color:#aaa }
+/* for all browsers */
+.placeholder { color: #aaa }
+
+
+/* for modern browsers */
 
 /* webkit */
 ::-webkit-input-placeholder { color: #aaa }
-
 /* firefox 4+ */
 :-moz-placeholder { color: #aaa }
