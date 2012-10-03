@@ -6,7 +6,7 @@
 
 - Cross-browser & Cross-styling HTML5 placeholder attribute
 - Support for password, textarea, text, email, search, url, etc...
-- Lightweight: **681 bytes** compressed & gzipped
+- Lightweight: **705 bytes** compressed & gzipped
 
 ## Usage
 
