@@ -45,14 +45,24 @@
 
     // ensure not sending placeholder value when placeholder is not supported
     if (!hasNativeSupport) {
-      $('form').submit(function () {
-        // empty input value if is the same as the placeholder attribute
-        $(this).find('input[placeholder], textarea[placeholder]').each(function () {
-          if (!$(this).val() && !this.disabled) {
-            this.value = '';
-          }
+      // filter forms to leave only the ones that submit event was not added yet
+      $('form')
+        .filter(function () {
+          return !$.data(this, pluginName);
+        })
+        // bind submit event
+        .each(function () {
+          $(this).bind('submit.placeholder', function () {
+            // empty input value if is the same as the placeholder attribute
+            $(this).find('input[placeholder], textarea[placeholder]').each(function () {
+              if (!$(this).val() && !this.disabled) {
+                this.value = '';
+              }
+            });
+          });
+          // mark it to know this already have submit event
+          $.data(this, pluginName, true);
         });
-      });
     }
 
     // copy attributes from a password input to a fakePassw
