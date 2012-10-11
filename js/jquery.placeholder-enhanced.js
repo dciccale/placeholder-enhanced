@@ -5,15 +5,15 @@
  */
 (function ($) {
 
-  // if browser supports placeholder attribute, use native events to show/hide placeholder
-  var hasNativeSupport = 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'),
-    pluginName = 'placeholderEnhanced',
+  var pluginName = 'placeholderEnhanced',
+    // if browser supports placeholder attribute, use native events to show/hide placeholder
+    hasNativeSupport = 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'),
     events = {
       focus: 'focus.placeholder',
       blur: 'blur.placeholder'
     },
     // placeholder css class
-    placeholerCssClass = 'placeholder',
+    placeholderCssClass = 'placeholder',
     $val;
 
   // if placeholder is not supported, the jQuery val function returns the placeholder
@@ -28,8 +28,8 @@
         return this[0].value === this.attr('placeholder') ? '' : this[0].value;
 
       } else {
-        if (this.hasClass(placeholerCssClass)) {
-          this.removeClass(placeholerCssClass);
+        if (this.hasClass(placeholderCssClass)) {
+          this.removeClass(placeholderCssClass);
         }
         return $val.apply(this, arguments);
       }
@@ -89,7 +89,7 @@
     return this.each(function () {
 
       // check if plugin already initialized
-      if ($.data(this, pluginName) === true) {
+      if ($.data(this, pluginName)) {
         return;
       }
 
@@ -101,11 +101,11 @@
 
       // on focus
       function removePlaceholder() {
-        if ($el.hasClass(placeholerCssClass)) {
+        if ($el.hasClass(placeholderCssClass)) {
           if (!hasNativeSupport) {
             el.value = '';
           }
-          $el.removeClass(placeholerCssClass);
+          $el.removeClass(placeholderCssClass);
         }
       }
 
@@ -117,13 +117,13 @@
         if (!$el.val()) {
           if (!hasNativeSupport) {
             if (!isPassword) {
-              $el.val(placeholderTxt).addClass(placeholerCssClass);
+              $el.val(placeholderTxt).addClass(placeholderCssClass);
             } else {
               showInput(fakePassw);
               hideInput($el);
             }
           } else {
-            $el.addClass(placeholerCssClass);
+            $el.addClass(placeholderCssClass);
           }
         }
       }
@@ -142,7 +142,7 @@
           tabindex: -1
         }))
           // add placeholder class
-          .addClass(placeholerCssClass)
+          .addClass(placeholderCssClass)
           // when fakePassw has focus, trigger password focus
           .bind(events.focus, function () {
             $el.trigger(events.focus);
