@@ -67,9 +67,9 @@
 
     // copy attributes from a password input to a fakePassw
     function copyAttrs(element) {
-      var attrs = {};
+      var attrs = {}, exclude = ['placeholder', 'name', 'id'];
       $.each(element.attributes, function (i, attr) {
-        if (attr.specified && attr.name !== 'placeholder' && attr.name !== 'name') {
+        if (attr.specified && exclude.indexOf(attr.name) < 0) {
           attrs[attr.name] = attr.value;
         }
       });
