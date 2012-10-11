@@ -3,27 +3,37 @@
  * Copyright (c) 2012 Denis Ciccale (@tdecs)
  * Released under MIT license (https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
  */
-(function ($, document) {
+(function ($) {
 
   var pluginName = 'placeholderEnhanced',
+    // if browser supports placeholder attribute, use native events to show/hide placeholder
+    hasNativeSupport = 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'),
+    events = {
+      focus: 'focus.placeholder',
+      blur: 'blur.placeholder',
+      submit: 'submit.placeholder'
+    },
     defaults = {
+      // placeholder css class
       className: 'placeholder'
     },
-    hasNativeSupport = 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'),
-    $val = $.fn.val;
+    $val;
 
   // if placeholder is not supported, the jQuery val function returns the placeholder
-  // wrap the jQuery val function to fix this
+  // wrap the val function to fix this
   if (!hasNativeSupport) {
-    $.fn.val = function (value) {
+    $val = $.fn.val;
+    $.fn.val = function () {
       if (!this.length) {
         return;
       }
-      var placeholderAttr = this.attr('placeholder'), placeholderClass;
-      if (!arguments.length && placeholderAttr) {
-        placeholderClass = $.data(this[0], pluginName).options.className;
-        return this.attr('value') === placeholderAttr && this.hasClass(placeholderClass) ? '' : this.attr('value');
+      if (!arguments.length && (this[0].nodeName === 'INPUT' || this[0].nodeName === 'TEXTAREA')) {
+        return this[0].value === this.attr('placeholder') ? '' : this[0].value;
+
       } else {
+        if (this.hasClass(defaults.className)) {
+          this.removeClass(defaults.className);
+        }
         return $val.apply(this, arguments);
       }
     };
@@ -32,96 +42,133 @@
   // constructor
   function PlaceholderEnhanced(element, options) {
     $.data(element, pluginName, this);
-    this.element = $(element);
-    this.options = $.extend({}, defaults, options);
-    this._hasNativeSupport = hasNativeSupport;
+    this.el = element;
+    this.$el = $(this.el);
+    this.placeholderTxt = this.$el.attr('placeholder');
+    this.isPassword = (this.el.type === 'password');
+    this.options = $.extend(defaults, options);
     this.init();
   }
 
+  // copy attributes from a password input to a fakePassw
+  function copyAttrs(element) {
+    var attrs = {}, exclude = ['placeholder', 'name', 'id'];
+    $.each(element.attributes, function (i, attr) {
+      if (attr.specified && exclude.indexOf(attr.name) < 0) {
+        attrs[attr.name] = attr.value;
+      }
+    });
+    return attrs;
+  }
+
+  // hides specified input
+  function hideInput($input) {
+    $input.css({position: 'absolute', left: '-9999em'});
+  }
+
+  // shows specified input
+  function showInput($input) {
+    $input.css({position: '', left: ''});
+  }
+
   PlaceholderEnhanced.prototype.init = function () {
-    var self = this,
-      placeholderText = this.element.attr('placeholder'),
-      isPassword = this.element.attr('type') === 'password',
-      fakePassword;
+    var that = this,
+      placeholderTxt = that.placeholderTxt,
+      isPassword = that.isPassword,
+      fakePassw;
 
-    if (!isPassword && !self._hasNativeSupport) {
-      this.element.addClass(this.options.className).val(placeholderText);
-    }
-
+    // on focus
     function removePlaceholder() {
-      if (!self.element.val() && self.element.hasClass(self.options.className)) {
-        if (!self._hasNativeSupport) {
-          self.element.val('');
+      if (that.$el.hasClass(that.options.className)) {
+        if (!hasNativeSupport) {
+          that.el.value = '';
         }
-        self.element.removeClass(self.options.className);
+        that.$el.removeClass(that.options.className);
       }
     }
 
-    function togglePassword(ev) {
-      var isFocus = (ev && ev.type === 'focus'),
-        input1 = isFocus ? fakePassword : self.element,
-        input2 = isFocus ? self.element : fakePassword;
-
-      input1.css({position: 'absolute', left: '-9999em'});
-      input2.removeAttr('style');
-    }
-
-    function setPlaceholder(ev) {
-      if (!self.element.attr('value')) {
-        if (!self._hasNativeSupport) {
+    // on blur
+    function setPlaceholder() {
+      // if there is no initial value
+      // or initial value is equal to placeholder (done in the fn.val wrapper)
+      // init the placeholder
+      if (!that.$el.val()) {
+        if (!hasNativeSupport) {
           if (!isPassword) {
-            self.element.addClass(self.options.className).val(placeholderText);
+            that.$el.val(placeholderTxt).addClass(that.options.className);
           } else {
-            togglePassword(ev);
+            showInput(fakePassw);
+            hideInput(that.$el);
           }
         } else {
-          self.element.addClass(self.options.className);
+          that.$el.addClass(that.options.className);
         }
-      } else {
-        self.element.removeClass(self.options.className);
       }
     }
 
-    function copyAttrs(element) {
-      var attrs = {};
-      $.each(element.attributes, function (i, attr) {
-        if (attr.specified && attr.name !== 'placeholder' && attr.name !== 'name') {
-          attrs[attr.name] = attr.value;
-        }
-      });
-      return attrs;
-    }
-
-    // placeholder for text and textarea
-    if (!isPassword || self._hasNativeSupport) {
-      self.element.on('focus.placeholder', removePlaceholder);
+    // placeholder for textarea and non-password inputs
+    if (!isPassword || hasNativeSupport) {
+      that.$el.bind(events.focus, removePlaceholder);
 
     // placeholder for password
     } else {
-      // create input with tabindex="-1" to skip tabbing
-      fakePassword = $('<input>', $.extend(copyAttrs(self.element[0]), {
+      // create a fakePassw input
+      // tabindex="-1" to skip tabbing
+      fakePassw = $('<input>', $.extend(copyAttrs(that.el), {
         'type': 'text',
-        value: placeholderText,
+        value: placeholderTxt,
         tabindex: -1
       }))
-        .addClass(self.options.className)
-        // trigger password focus when focus is on text input
-        .on('focus.placeholder', function () {
-          self.element.trigger('focus.placeholder');
+        // add placeholder class
+        .addClass(that.options.className)
+        // when fakePassw has focus, trigger password focus
+        .bind(events.focus, function () {
+          that.$el.trigger(events.focus);
         })
-        .insertBefore(self.element);
+        // insert the fakePassw input
+        .insertBefore(that.$el);
 
-      // insert the text input
-      self.element.on('focus.placeholder', togglePassword);
-      togglePassword();
+      // when password input has focus, show the real password input and hide the fakePassw one
+      that.$el.bind(events.focus, function () {
+        showInput(that.$el);
+        hideInput(fakePassw);
+      });
     }
 
-    // bind blur event and trigger on load
-    self.element.on('blur.placeholder', setPlaceholder);
+    // bind blur event and trigger it the first time
+    that.$el.bind(events.blur, setPlaceholder).trigger(events.blur);
   };
 
   // add the plugin to jQuery
   $.fn[pluginName] = function (options) {
+
+    // don't act on absent elements
+    if (!this.length) {
+      return;
+    }
+
+    // ensure not sending placeholder value when placeholder is not supported
+    if (!hasNativeSupport) {
+      // filter forms to leave only the ones that submit event was not added yet
+      $('form')
+        .filter(function () {
+          return !$.data(this, pluginName);
+        })
+        // bind submit event
+        .each(function () {
+          $(this).bind(events.submit, function () {
+            // empty input value if is the same as the placeholder attribute
+            $(this).find('input[placeholder], textarea[placeholder]').each(function () {
+              if (!$(this).val() && !this.disabled) {
+                this.value = '';
+              }
+            });
+          });
+          // mark it to know this already have submit event
+          $.data(this, pluginName, true);
+        });
+    }
+
     return this.each(function () {
       if (!$.data(this, pluginName)) {
         new PlaceholderEnhanced(this, options);
@@ -134,4 +181,4 @@
     $('input[placeholder], textarea[placeholder]').placeholderEnhanced();
   });
 
-}(jQuery, document));
+}(jQuery));
