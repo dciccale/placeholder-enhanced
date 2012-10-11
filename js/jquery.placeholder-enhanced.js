@@ -69,7 +69,7 @@
     function copyAttrs(element) {
       var attrs = {}, exclude = ['placeholder', 'name', 'id'];
       $.each(element.attributes, function (i, attr) {
-        if (attr.specified && exclude.indexOf(attr.name) < 0) {
+        if (attr.specified && $.inArray(attr.name, exclude) < 0) {
           attrs[attr.name] = attr.value;
         }
       });
