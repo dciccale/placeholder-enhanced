@@ -17,6 +17,7 @@
       // placeholder css class
       className: 'placeholder'
     },
+    inputsSelector = 'input[placeholder], textarea[placeholder]',
     $val;
 
   // if placeholder is not supported, the jQuery val function returns the placeholder
@@ -158,7 +159,7 @@
         .each(function () {
           $(this).bind(events.submit, function () {
             // empty input value if is the same as the placeholder attribute
-            $(this).find('input[placeholder], textarea[placeholder]').each(function () {
+            $(this).find(inputsSelector).each(function () {
               if (!$(this).val() && !this.disabled) {
                 this.value = '';
               }
@@ -178,7 +179,7 @@
 
   // initialize the plugin
   $(function () {
-    $('input[placeholder], textarea[placeholder]').placeholderEnhanced();
+    $(inputsSelector).placeholderEnhanced();
   });
 
 }(jQuery));
