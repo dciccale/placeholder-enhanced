@@ -1,23 +1,24 @@
 # jQuery Placeholder Enhanced 1.4
 
-### This is the Enhanced jQuery Placeholder plugin
+### jQuery Placeholder plugin is an enhanced polyfill for the HTML5 placeholder attribute.
 
 ## Features
 
-- Cross-browser & Cross-styling HTML5 placeholder attribute
-- Support for password, textarea, text, email, search, url, etc...
+- Cross-browser & Cross-styling
+- Support for all input types, password, textarea, text, email, search, url, etc...
+- Robust: it heavely behave as the HTML5 placeholder defined in the specs
 - Lightweight: **705 bytes** compressed & gzipped
 
 ## Usage
 
-Just include the js file after jQuery, on your HTML page and the plugin will automatically be initialized
+Just include the js file after jQuery, on your HTML page and the plugin will automatically initialize
 
 ```html
 <script src="jquery.js"></script>
 <script src="jquery.placeholder-enhanced.js"></script>
 ```
 
-If you want to initialize the plugin yourself, just call the plugin lik this:
+If you want to initialize the plugin yourself after the first auto-initialize, just call the plugin lik this:
 
 ```javascript
 $('input[placeholder], textarea[placeholder]').placeholderEnhanced();
@@ -39,7 +40,7 @@ $(function () {
 ```
 
 ### CSS
-Customize the style of the placeholder with CSS
+Customize the style of the placeholder with CSS in a cross-browser manner (even for browsers that natively supports placeholder)
 See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/blob/master/css/placeholder-enhanced.css)
 
 ## Demo
@@ -49,4 +50,3 @@ For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob
 
 ## License
 See [LICENSE.txt](https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
-
