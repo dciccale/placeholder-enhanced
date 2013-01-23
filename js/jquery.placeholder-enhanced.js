@@ -1,6 +1,6 @@
 /*!
- * jQuery Placeholder Enhanced 1.4
- * Copyright (c) 2012 Denis Ciccale (@tdecs)
+ * jQuery Placeholder Enhanced 1.5
+ * Copyright (c) 2013 Denis Ciccale (@tdecs)
  * Released under MIT license (https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
  */
 (function ($) {
@@ -8,9 +8,11 @@
   var pluginName = 'placeholderEnhanced',
     // if browser supports placeholder attribute, use native events to show/hide placeholder
     hasNativeSupport = 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'),
-    events = {
+    // events namespaces
+    event = {
       focus: 'focus.placeholder',
-      blur: 'blur.placeholder'
+      blur: 'blur.placeholder',
+      submit: 'submit.placeholder'
     },
     // placeholder css class
     placeholderCssClass = 'placeholder',
@@ -21,11 +23,12 @@
   if (!hasNativeSupport) {
     $val = $.fn.val;
     $.fn.val = function () {
+      var el = this[0];
       if (!this.length) {
         return;
       }
-      if (!arguments.length && (this[0].nodeName === 'INPUT' || this[0].nodeName === 'TEXTAREA')) {
-        return this[0].value === this.attr('placeholder') ? '' : this[0].value;
+      if (!arguments.length && (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA')) {
+        return el.value === this.attr('placeholder') ? '' : el.value;
 
       } else {
         if (this.hasClass(placeholderCssClass)) {
@@ -38,7 +41,7 @@
 
   $.fn[pluginName] = function () {
 
-    // don't act on absent elements
+    // don't do anything with an empty collection
     if (!this.length) {
       return;
     }
@@ -47,25 +50,26 @@
     if (!hasNativeSupport) {
       // filter forms to leave only the ones that submit event was not added yet
       $('form')
+        // only grab forms that are not prepared
         .filter(function () {
           return !$.data(this, pluginName);
         })
-        // bind submit event
         .each(function () {
-          $(this).bind('submit.placeholder', function () {
-            // empty input value if is the same as the placeholder attribute
+          // bind submit event
+          $(this).bind(event.submit, function () {
+            // empty input value if it's the same as the placeholder attribute
             $(this).find('input[placeholder], textarea[placeholder]').each(function () {
               if (!$(this).val() && !this.disabled) {
                 this.value = '';
               }
             });
           });
-          // mark it to know this already have submit event
+          // mark as prepared
           $.data(this, pluginName, true);
         });
     }
 
-    // copy attributes from a password input to a fakePassw
+    // copy attributes from a DOM node to a plain object to use later
     function copyAttrs(element) {
       var attrs = {}, exclude = ['placeholder', 'name', 'id'];
       $.each(element.attributes, function (i, attr) {
@@ -86,6 +90,7 @@
       $input.css({position: '', left: ''});
     }
 
+
     return this.each(function () {
 
       // check if plugin already initialized
@@ -94,23 +99,15 @@
       }
 
       var el = this,
-        $el = $(this),
+        $el = $(el),
         placeholderTxt = $el.attr('placeholder'),
         isPassword = (el.type === 'password'),
-        fakePassw;
+        fakePassw,
+        setPlaceholder,
+        removePlaceholder;
 
-      // on focus
-      function removePlaceholder() {
-        if ($el.hasClass(placeholderCssClass)) {
-          if (!hasNativeSupport) {
-            el.value = '';
-          }
-          $el.removeClass(placeholderCssClass);
-        }
-      }
-
-      // on blur
-      function setPlaceholder() {
+      // on blur set placeholder
+      setPlaceholder = function () {
         // if there is no initial value
         // or initial value is equal to placeholder (done in the fn.val wrapper)
         // init the placeholder
@@ -126,47 +123,56 @@
             $el.addClass(placeholderCssClass);
           }
         }
-      }
+      };
 
-      // placeholder for textarea and non-password inputs
+      // on focus remove placeholder
       if (!isPassword || hasNativeSupport) {
-        $el.bind(events.focus, removePlaceholder);
+        // for non-password inputs and textareas
+        removePlaceholder = function () {
+          if ($el.hasClass(placeholderCssClass)) {
+            if (!hasNativeSupport) {
+              el.value = '';
+            }
+            $el.removeClass(placeholderCssClass);
+          }
+        };
 
-      // placeholder for password
-      } else {
-        // create a fakePassw input
-        // tabindex="-1" to skip tabbing
+      // for password inputs
+      } else if (!hasNativeSupport) {
+        removePlaceholder = function () {
+          showInput($el);
+          hideInput(fakePassw);
+        };
+
+        // create a fake password input
         fakePassw = $('<input>', $.extend(copyAttrs(el), {
           'type': 'text',
           value: placeholderTxt,
-          tabindex: -1
+          tabindex: -1 // skip tabbing
         }))
           // add placeholder class
           .addClass(placeholderCssClass)
-          // when fakePassw has focus, trigger password focus
-          .bind(events.focus, function () {
-            $el.trigger(events.focus);
+          // when fake input has focus, trigger real input focus
+          .bind(event.focus, function () {
+            $el.trigger(event.focus);
           })
-          // insert the fakePassw input
+          // insert fake input
           .insertBefore($el);
-
-        // when password input has focus, show the real password input and hide the fakePassw one
-        $el.bind(events.focus, function () {
-          showInput($el);
-          hideInput(fakePassw);
-        });
       }
 
-      // bind blur event and trigger it the first time
-      $el.bind(events.blur, setPlaceholder).trigger(events.blur);
+      // bind events and trigger blur the first time
+      $el
+        .bind(event.blur, setPlaceholder)
+        .bind(event.focus, removePlaceholder)
+        .trigger(event.blur);
 
-      // mark plugin as initialized
+      // mark plugin as initialized for current element
       $.data(el, pluginName, true);
     });
   };
 
   // auto-initialize the plugin
   $(function () {
-    $('input[placeholder], textarea[placeholder]').placeholderEnhanced();
+    $('input[placeholder], textarea[placeholder]')[pluginName]();
   });
 }(jQuery));
