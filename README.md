@@ -1,4 +1,4 @@
-# jQuery Placeholder Enhanced 1.4
+# jQuery Placeholder Enhanced 1.5
 
 ### jQuery Placeholder plugin is an enhanced polyfill for the HTML5 placeholder attribute.
 
@@ -7,7 +7,7 @@
 - Cross-browser & Cross-styling
 - Support for all input types, password, textarea, text, email, search, url, etc...
 - Robust: it heavely behave as the HTML5 placeholder defined in the specs
-- Lightweight: **712 bytes** compressed & gzipped
+- Lightweight: **713 bytes** compressed & gzipped
 
 ## Usage
 
