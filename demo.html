@@ -2,31 +2,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>jQuery Placeholder Enhanced - Demo</title>
+
 <link href="css/demo.css" rel="stylesheet" />
+
 <!-- required css (on a different file just for demo) -->
 <link href="css/placeholder-enhanced.css" rel="stylesheet" />
-<!-- latest jQuery -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<!-- jQuery Placeholder Enhanced plugin -->
-<script src="js/jquery.placeholder-enhanced.js"></script>
-<!-- show form submitted data -->
-<script>
-  $(function () {
-    var form = $('#form'),
-      result = $('#result');
-
-    form.on('submit', function (ev) {
-      ev.preventDefault();
-      result.html(form.serialize());
-      // only for demo (refresh placeholders)
-      $(this).find("input[placeholder], textarea[placeholder]").blur();
-    });
-  });
-</script>
-
-<a href="http://github.com/dciccale/placeholder-enhanced"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
 <h1>jQuery Placeholder Enhanced</h1>
+
 <div id="content">
   <div id="view" class="section">
     <form method="post" id="form">
@@ -44,3 +27,26 @@
     <p><strong>Form result:</strong> <span id="result"></span></p>
   </div>
 </div>
+
+<!-- latest jQuery -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<!-- jQuery Placeholder Enhanced plugin -->
+<script src="js/jquery.placeholder-enhanced.js"></script>
+
+<!-- DEMO: show form submitted data -->
+<script>
+  $(function () {
+    var form = $('#form'),
+      result = $('#result');
+
+    form.on('submit', function (ev) {
+      ev.preventDefault();
+      result.html(form.serialize());
+      // only for demo (refresh placeholders)
+      $(this).find("input[placeholder], textarea[placeholder]").blur();
+    });
+  });
+</script>
+
+<a href="http://github.com/dciccale/placeholder-enhanced"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
