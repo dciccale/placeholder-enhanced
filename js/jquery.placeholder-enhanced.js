@@ -23,18 +23,18 @@
   if (!hasNativeSupport) {
     $val = $.fn.val;
     $.fn.val = function () {
-      var el = this[0];
-      if (!this.length) {
+      var $el = this, el = $el[0];
+      if (!el) {
         return;
       }
       if (!arguments.length && (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA')) {
-        return el.value === this.attr('placeholder') ? '' : el.value;
+        return el.value === $el.attr('placeholder') ? '' : el.value;
 
       } else {
-        if (this.hasClass(placeholderCssClass)) {
-          this.removeClass(placeholderCssClass);
+        if ($el.hasClass(placeholderCssClass)) {
+          $el.removeClass(placeholderCssClass);
         }
-        return $val.apply(this, arguments);
+        return $val.apply($el, arguments);
       }
     };
   }
