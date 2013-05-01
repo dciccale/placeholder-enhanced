@@ -1,10 +1,9 @@
 /*!
- * jQuery Placeholder Enhanced 1.5
+ * jQuery Placeholder Enhanced 1.5.1
  * Copyright (c) 2013 Denis Ciccale (@tdecs)
  * Released under MIT license (https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
  */
 (function ($) {
-
   var pluginName = 'placeholderEnhanced',
     // if browser supports placeholder attribute, use native events to show/hide placeholder
     hasNativeSupport = 'placeholder' in document.createElement('input') && 'placeholder' in document.createElement('textarea'),
