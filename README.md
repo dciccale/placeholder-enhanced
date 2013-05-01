@@ -7,7 +7,7 @@
 - Cross-browser & Cross-styling
 - Support for all input types, password, textarea, text, email, search, url, etc...
 - Robust: it heavely behave as the HTML5 placeholder defined in the specs
-- Lightweight: **713 bytes** compressed & gzipped
+- Lightweight: **715 bytes** compressed & gzipped
 
 ## Usage
 
