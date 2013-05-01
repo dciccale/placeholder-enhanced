@@ -11,22 +11,24 @@
 
 ## Usage
 
-Just include the js file after jQuery, on your HTML page and the plugin will automatically initialize
+Just include the js file after jQuery on your HTML page and the plugin will be automatically initialized
 
 ```html
 <script src="jquery.js"></script>
 <script src="jquery.placeholder-enhanced.js"></script>
 ```
 
-If you want to initialize the plugin yourself after the first auto-initialize, just call the plugin lik this:
+If you want to initialize the plugin yourself after the first auto-initialize (for example after ajax content being
+loaded), just call the plugin lik this:
 
 ```javascript
 $('input[placeholder], textarea[placeholder]').placeholderEnhanced();
 ```
 
-Or if you want to initialize the plugin after loading an HTML page via AJAX just call the plugin after the content is loaded.
+### Example:
 
-For example:
+Initialize the plugin after loading an HTML page via AJAX, call the plugin after the content is loaded.
+
 ```javascript
 $(function () {
   $.get('file.html', function (html) {
@@ -39,7 +41,7 @@ $(function () {
 })
 ```
 
-### CSS
+## CSS
 Customize the style of the placeholder with CSS in a cross-browser manner (even for browsers that natively supports placeholder)
 See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/blob/master/css/placeholder-enhanced.css)
 
