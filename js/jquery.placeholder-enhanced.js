@@ -46,7 +46,7 @@
   if (!HAS_NATIVE_SUPPORT) {
     $val = $.fn.val;
     $.fn.val = function () {
-      var $el = this
+      var $el = this;
       var el = $el[0];
       if (!el) {
         return;
