@@ -31,7 +31,7 @@
      * if false, each browser wil handle behaviour & style natively
      * i.e. in case of Chrome placeholder is still visible on focus
      */
-    normalize: false
+    normalize: true
   };
 
   // for wrapping $().val()
