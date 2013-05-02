@@ -21,7 +21,7 @@ Just include the js file after jQuery on your HTML page and the plugin will be a
 ```
 
 If you want to initialize the plugin yourself after the first auto-initialize (for example after ajax content being
-loaded), just call the plugin lik this:
+loaded), just call the plugin like this:
 
 ```javascript
 $('input[placeholder], textarea[placeholder]').placeholderEnhanced();
