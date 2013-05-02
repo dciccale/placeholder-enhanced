@@ -9,6 +9,8 @@
 - Robust: it heavely behave as the HTML5 placeholder defined in the specs
 - Lightweight: **803 bytes** minified & gzipped
 
+*Requires jQuery 1.4.4 or higher*
+
 ## Usage
 
 Just include the js file after jQuery on your HTML page and the plugin will be automatically initialized
@@ -52,13 +54,15 @@ $('input[placeholder], textarea[placeholder]').placeholderEnhanced('destroy');
 It will automatically clean all what the plugin first created and only for the selected elements.
 
 ## CSS
-Customize the style of the placeholder with CSS in a cross-browser manner (even for browsers that natively supports placeholder)
+
+Customize the style of the placeholder with CSS in a cross-browser manner:
+
 See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/blob/master/css/placeholder-enhanced.css)
 
 ## Demo
-For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) [online](http://dciccale.github.com/placeholder-enhanced/)
 
-*Requires jQuery 1.4.4 or higher*
+For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) **[online](http://dciccale.github.com/placeholder-enhanced/)**
 
 ## License
+
 See [LICENSE.txt](https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt)
