@@ -192,10 +192,9 @@
           // create a fake password input
           fakePassw = $('<input>', $.extend(copyAttrs(el), {
             'type': 'text',
-            'class': settings.cssClass,
             value: placeholderTxt,
             tabindex: -1 // skip tabbing
-          }))
+          })).addClass(settings.cssClass)
             // when focus, trigger real input focus
             .bind(EVENT.FOCUS, function () {
               $el.trigger(EVENT.FOCUS);
