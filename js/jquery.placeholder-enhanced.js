@@ -51,7 +51,7 @@
       if (!el) {
         return;
       }
-      if (!arguments.length && (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA')) {
+      if (!arguments.length && ($.nodeName(el, 'input') || $.nodeName(el, 'textarea'))) {
         return el.value === $el.attr('placeholder') ? '' : el.value;
       } else {
         if ($el.hasClass(DEFAULTS.cssClass)) {
