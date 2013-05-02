@@ -154,7 +154,7 @@
         };
 
         removePlaceholder = function () {
-          $el.attr('placeholder', '').removeClass(settings.cssClass);
+          $el.removeAttr('placeholder').removeClass(settings.cssClass);
         };
 
       // placeholder support for older browsers
