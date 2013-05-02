@@ -1,5 +1,5 @@
 /*!
- * jQuery Placeholder Enhanced 1.6.1
+ * jQuery Placeholder Enhanced 1.6.2
  * Copyright (c) 2013 Denis Ciccale (@tdecs)
  * Released under MIT license
  * https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt
@@ -34,29 +34,39 @@
     normalize: true
   };
 
-  // for wrapping $().val()
+  // to save original jQuery .val()
   var $val;
 
   /*
-   * if placeholder is not supported, the jQuery val function
+   * handle the use of jQuery .val()
+   * if placeholder is not supported, the .val() function
    * returns the placeholder, wrap the val function to fix this.
-   * useful when using $().val() or $().serialize()
-   * or any other jQuery method that uses $().val()
+   * useful when using .val() or .serialize()
+   * or any other jQuery method that uses .val()
    */
   if (!HAS_NATIVE_SUPPORT) {
+    // save reference to original
     $val = $.fn.val;
     $.fn.val = function () {
       var $el = this;
       var el = $el[0];
+
       if (!el) {
         return;
       }
+
+      // handle .val()
       if (!arguments.length && ($.nodeName(el, 'input') || $.nodeName(el, 'textarea'))) {
         return el.value === $el.attr('placeholder') ? '' : el.value;
+
+      // handle .val(''), .val(null), .val(undefined)
+      } else if (!arguments[0]) {
+        el.value = $el.addClass(DEFAULTS.cssClass).attr('placeholder');
+        return $el;
+
+      // handle .val('value')
       } else {
-        if ($el.hasClass(DEFAULTS.cssClass)) {
-          $el.removeClass(DEFAULTS.cssClass);
-        }
+        $el.removeClass(DEFAULTS.cssClass);
         return $val.apply($el, arguments);
       }
     };
