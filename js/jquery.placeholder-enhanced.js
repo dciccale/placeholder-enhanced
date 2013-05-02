@@ -106,8 +106,8 @@
 
     // copy attributes from a DOM node to a plain object to use later
     function copyAttrs(element) {
-      var attrs = {},
-        exclude = ['placeholder', 'name', 'id'];
+      var attrs = {};
+      var exclude = ['placeholder', 'name', 'id'];
       $.each(element.attributes, function (i, attr) {
         if (attr.specified && $.inArray(attr.name, exclude) < 0) {
           attrs[attr.name] = attr.value;
