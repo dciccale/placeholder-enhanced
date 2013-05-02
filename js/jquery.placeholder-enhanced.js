@@ -141,8 +141,8 @@
       var placeholderTxt = $el.attr('placeholder');
       // passwords have different treatment
       var isPassword = (el.type === 'password');
-      var setPlaceholder
-      var removePlaceholder
+      var setPlaceholder;
+      var removePlaceholder;
       var fakePassw;
 
       // normalize behaviour in modern browsers
