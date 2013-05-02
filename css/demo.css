@@ -62,7 +62,7 @@ strong {
   margin:0;
 }
 
-#submit input {
+.btn {
   padding:5px 15px;
   border:2px solid gray;
   font-size:14px;
