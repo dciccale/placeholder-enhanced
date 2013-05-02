@@ -22,7 +22,7 @@
       <p>Setting size attribute on password also works fine for unsupported browsers</p>
       <p><input type="password" name="passwordSize" id="passwordSize" size="55" placeholder="Type password here" /></p>
       <div class="separator"></div>
-      <p id="submit"><input type="submit" value="Send" /></p>
+      <p id="submit"><input type="submit" class="btn" value="Send" /></p>
     </form>
     <p><strong>Form result:</strong> <span id="result"></span></p>
   </div>
@@ -43,8 +43,6 @@
     form.on('submit', function (ev) {
       ev.preventDefault();
       result.html(form.serialize());
-      // only for demo (refresh placeholders)
-      $(this).find("input[placeholder], textarea[placeholder]").blur();
     });
   });
 </script>
