@@ -1,5 +1,5 @@
 /*!
- * jQuery Placeholder Enhanced 1.6.2
+ * jQuery Placeholder Enhanced 1.6.4
  * Copyright (c) 2013 Denis Ciccale (@tdecs)
  * Released under MIT license
  * https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt
@@ -34,22 +34,20 @@
     normalize: true
   };
 
-  // to save original jQuery .val()
-  var $val;
+  // save original jQuery .val() function
+  var $val = $.fn.val;
 
   /*
-   * handle the use of jQuery .val()
-   * if placeholder is not supported, the .val() function
-   * returns the placeholder, wrap the val function to fix this.
-   * useful when using .val() or .serialize()
-   * or any other jQuery method that uses .val()
+   * handle the use of jQuery .val(), if placeholder is not supported
+   * the .val() function returns the placeholder value, wrap the val
+   * function to fix this, also useful when using .serialize() or any other
+   * jQuery method that uses .val()
    */
+
+  // new .val() function for unsupported browsers
   if (!HAS_NATIVE_SUPPORT) {
-    // save reference to original
-    $val = $.fn.val;
     $.fn.val = function () {
-      var $el = this;
-      var el = $el[0];
+      var el = this[0];
 
       if (!el) {
         return;
@@ -57,35 +55,59 @@
 
       // handle .val()
       if (!arguments.length && ($.nodeName(el, 'input') || $.nodeName(el, 'textarea'))) {
-        return el.value === $el.attr('placeholder') ? '' : el.value;
+        return el.value === this.attr('placeholder') ? '' : el.value;
 
       // handle .val(''), .val(null), .val(undefined)
-      } else if (!arguments[0]) {
-        el.value = $el.addClass(DEFAULTS.cssClass).attr('placeholder');
-        return $el;
+      } else if (!arguments[0] && this.attr('placeholder')) {
+        el.value = this.addClass(DEFAULTS.cssClass).attr('placeholder');
+        return this;
 
       // handle .val('value')
       } else {
-        $el.removeClass(DEFAULTS.cssClass);
-        return $val.apply($el, arguments);
+        this.removeClass(DEFAULTS.cssClass);
+        return $val.apply(this, arguments);
       }
+    };
+
+  // new .val() function for modern browsers when normalize mode is on
+  } else if (HAS_NATIVE_SUPPORT && DEFAULTS.normalize) {
+    $.fn.val = function () {
+      var el = this[0];
+
+      if (!el) {
+        return;
+      }
+
+      // handle .val()
+      if (!arguments.length) {
+        return el.value;
+
+      // handle .val(''), .val(null), .val(undefined)
+      } else if (!arguments[0] && this.attr('placeholder')) {
+        this.attr('placeholder', el._placeholder);
+      }
+
+      this.toggleClass(DEFAULTS.cssClass, !arguments[0]);
+
+      // handle .val('value')
+      return $val.apply(this, arguments);
     };
   }
 
   // Placeholder Enhanced plugin
   $.fn[PLUGIN_NAME] = function (options) {
 
+    // merged options
+    var settings = $.extend(DEFAULTS, options);
+
     /*
      * don't do anything if:
      * empty set
      * placeholder supported but don't want to normalize modern browsers
      */
-    if (!this.length || (HAS_NATIVE_SUPPORT && !DEFAULTS.normalize)) {
+    if (!this.length || (HAS_NATIVE_SUPPORT && !settings.normalize)) {
       return;
     }
-
-    // merged options
-    var settings = $.extend(DEFAULTS, options);
 
     // check if options param is destroy method
     if (options === 'destroy') {
@@ -100,15 +122,22 @@
           var el = this;
           var $el = $(el).unbind('.placeholder');
           var isPassword = (el.type === 'password');
+          var placeholderTxt = $el.attr('placeholder');
           // do all this only for unsupported browsers
           if (!HAS_NATIVE_SUPPORT) {
-            el.value = '';
+            el.value = el.value === placeholderTxt ? '' : el.value;
             // remove fake password input
             if (isPassword) {
               showInput($el);
               $el.prev().unbind('.placeholder').remove();
             }
+
+          // delete backup prop
+          } else {
+            delete el._placeholder;
           }
+          // restore original jQuery .val()
+          $.fn.val = $val;
           // plugin off
           $.removeData(el, PLUGIN_NAME);
         });
@@ -158,16 +187,17 @@
       // normalize behaviour in modern browsers
       if (HAS_NATIVE_SUPPORT && settings.normalize) {
         setPlaceholder = function () {
-          if (!$el.val()) {
+          if (!el.value) {
             $el.addClass(settings.cssClass).attr('placeholder', placeholderTxt);
           }
         };
 
         removePlaceholder = function () {
+          el._placeholder = placeholderTxt;
           $el.removeAttr('placeholder').removeClass(settings.cssClass);
         };
 
-      // placeholder support for older browsers
+      // placeholder support for unsupported browsers
       } else if (!HAS_NATIVE_SUPPORT) {
         setPlaceholder = function () {
           // if there is no initial value
@@ -192,8 +222,8 @@
             }
           };
 
-        // for password inputs
-        } else if (!HAS_NATIVE_SUPPORT) {
+        // and for password inputs
+        } else {
           removePlaceholder = function () {
             showInput($el);
             hideInput(fakePassw);
@@ -204,7 +234,8 @@
             'type': 'text',
             value: placeholderTxt,
             tabindex: -1 // skip tabbing
-          })).addClass(settings.cssClass)
+          }))
+            .addClass(settings.cssClass)
             // when focus, trigger real input focus
             .bind(EVENT.FOCUS, function () {
               $el.trigger(EVENT.FOCUS);
