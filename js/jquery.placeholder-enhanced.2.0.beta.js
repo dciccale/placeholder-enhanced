@@ -1,3 +1,9 @@
+/*
+ * OUTDATED VERSION!
+ * Please use latest stable version 1.6.x
+ * New 2.0 coming soon
+ */
+
 /*!
  * jQuery Placeholder Enhanced 2.0 beta
  * Copyright (c) 2012 Denis Ciccale (@tdecs)
