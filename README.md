@@ -66,11 +66,13 @@ See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/
 For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) **[online](http://dciccale.github.com/placeholder-enhanced/)**
 
 ## TODO
-- Create a [kimbo.js](http://kimbojs.com) plugin version
-- Creat a plain JavaScript version
-- Create two separate versions
-  - Version 1.x to give *full* cross-browser support and normalization
-  - Version 2.x only to normalize *modern browsers* placeholder behaviour
+- Organize the plugin code using prototype? could be useful having two different prototypes dependening if modern
+  browser or not.
+- Create a [kimbo.js](http://kimbojs.com) plugin version.
+- Creat a plain JavaScript version.
+- Create two separate versions.
+  - Version 1.x to give *full* cross-browser support and normalization.
+  - Version 2.x only to normalize *modern browsers* placeholder behaviour.
 
 ## License
 
