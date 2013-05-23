@@ -5,14 +5,14 @@
 
 <link href="css/demo.min.css" rel="stylesheet" />
 
-<!-- required css (on a different file just for demo) -->
+<!-- Placeholder Enhanced required css (on a different file just for demo) -->
 <link href="css/placeholder-enhanced.css" rel="stylesheet" />
 
 <h1>jQuery Placeholder Enhanced</h1>
 
 <div id="content">
   <div id="view" class="section">
-    <form method="post" id="form">
+    <form method="post" id="form" novalidate>
       <p><input type="text" name="text" id="text" placeholder="Insert text here" /></p>
       <p><input type="email" name="email" id="email" placeholder="Insert email here" /></p>
       <p><input type="url" name="url" id="url" placeholder="Insert url here" /></p>
@@ -28,21 +28,40 @@
   </div>
 </div>
 
+<p>Set/Empty value to the first input programatically using jQuery's .val() function</p>
+<button id="set_btn" class="btn">Set "Demo text"</button>
+<button id="empty_btn" class="btn">Empty input</button>
+
 <!-- latest jQuery -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
-<!-- jQuery Placeholder Enhanced plugin -->
+<!-- Placeholder Enhanced -->
 <script src="js/jquery.placeholder-enhanced.min.js"></script>
 
-<!-- DEMO: show form submitted data -->
+<!-- demo -->
 <script>
   $(function () {
-    var form = $('#form'),
-      result = $('#result');
+    var $form = $('#form'),
+      $result = $('#result'),
+      $input = $('#text');
 
-    form.on('submit', function (ev) {
+    // display submitted data
+    $form.bind('submit', function (ev) {
       ev.preventDefault();
-      result.html(form.serialize());
+      $result.html($form.serialize());
+    });
+
+    // set value programatically
+    // placeholder should be removed
+    $('#set_btn').bind('click', function () {
+      $input.val('Demo text');
+    });
+
+    // empty value programatically
+    // placeholder should appear
+    $('#empty_btn').bind('click', function () {
+      // supports .val(''), .val(null), .val(undefined)
+      $input.val('');
     });
   });
 </script>
