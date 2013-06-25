@@ -210,6 +210,12 @@
             } else {
               $el.val(placeholderTxt).addClass(settings.cssClass);
             }
+          } else {
+            if (isPassword) {
+              // if there is a value already, we want to remove the fake placeholder
+              // otherwise, we'll have both the fake placeholder and the actual input visible
+              removePlaceholder();
+            }
           }
         };
 
