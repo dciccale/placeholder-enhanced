@@ -4,6 +4,6 @@
   (remember changing it in the js file too)
 */
 
-.placeholder { color: #aaa } /* All */
-::-webkit-input-placeholder { color: #aaa } /* WebKit */
-:-moz-placeholder { color: #aaa } /* Firefox 4+ */
+.placeholder                { color: #aaa; } /* All browsers */
+::-webkit-input-placeholder { color: #aaa; } /* WebKit */
+:-moz-placeholder           { color: #aaa; } /* Firefox 4+ */
