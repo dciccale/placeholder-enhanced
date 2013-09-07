@@ -83,7 +83,7 @@
         return el.value;
 
       // handle .val(''), .val(null), .val(undefined)
-      } else if (!arguments[0] && this.attr('placeholder')) {
+      } else if (!arguments[0] && el._placeholder) {
         this.attr('placeholder', el._placeholder);
       }
 
