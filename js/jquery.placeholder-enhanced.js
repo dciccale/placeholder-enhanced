@@ -1,5 +1,5 @@
 /*!
- * jQuery Placeholder Enhanced 1.6.5
+ * jQuery Placeholder Enhanced 1.6.6
  * Copyright (c) 2013 Denis Ciccale (@tdecs)
  * Released under MIT license
  * https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt

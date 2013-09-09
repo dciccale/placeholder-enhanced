@@ -1,4 +1,4 @@
-# Placeholder Enhanced 1.6.5
+# Placeholder Enhanced 1.6.6
 
 ### This jQuery Placeholder plugin is an enhanced polyfill for the HTML5 placeholder attribute.
 
@@ -9,7 +9,7 @@
 - Robust: it heavely behave as the HTML5 placeholder defined in the specs
 - Normalize placeholder behaviour in modern browsers
 - Fix jQuery.val() function to work as expected to set/get the value of inputs with placeholder
-- Lightweight: **889 bytes** minified & gzipped
+- Lightweight: **890 bytes** minified & gzipped
 
 *Requires jQuery 1.4.4 or higher*
 
@@ -66,10 +66,8 @@ See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/
 For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) **[online](http://dciccale.github.com/placeholder-enhanced/)**
 
 ## TODO
-- Organize the plugin code using prototype? could be useful having two different prototypes dependening if modern
-  browser or not.
 - Create a [kimbo.js](http://kimbojs.com) plugin version.
-- Creat a plain JavaScript version.
+- Create a plain JavaScript version.
 - Create two separate versions.
   - Version 1.x to give *full* cross-browser support and normalization.
   - Version 2.x only to normalize *modern browsers* placeholder behaviour.
