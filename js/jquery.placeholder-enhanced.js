@@ -220,7 +220,7 @@
         // remove function for inputs and textareas
         if (!isPassword) {
           removePlaceholder = function () {
-            if ($el.hasClass(settings.cssClass)) {
+            if ($el.hasClass(settings.cssClass) && !$el.val()) {
               el.value = '';
               $el.removeClass(settings.cssClass);
             }
