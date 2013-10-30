@@ -61,7 +61,7 @@
     // placeholder should appear
     $('#empty_btn').bind('click', function () {
       // supports .val(''), .val(null), .val(undefined)
-      $input.val('');
+      $form.find('input:not([type="submit"]), textarea').val('');
     });
   });
 </script>
