@@ -46,70 +46,62 @@
 
     // new .val() function for unsupported browsers
     if (!HAS_NATIVE_SUPPORT) {
-        $.fn.val = function () {
-            var args = arguments;
-            var el = this[0];
-            if (!el) { return; }
+      $.fn.val = function () {
+        var args = arguments;
+        var el = this[0];
+        if (!el) { return; }
 
-            var $el = $(el);
+        var $el = $(el);
 
-            // handle .val()
-            if (!args.length){
-                if ($.nodeName(el, 'input') || $.nodeName(el, 'textarea')) {
-                    return el.value === $el.attr('placeholder') ? '' : el.value;
-                }
-                else{
-                    $val.apply($el, args);
-                }
+        // handle .val()
+        if (!args.length){
+          if ($.nodeName(el, 'input') || $.nodeName(el, 'textarea')) {
+            return el.value === $el.attr('placeholder') ? '' : el.value;
+          } else{
+            $val.apply($el, args);
+          }
+        }
+
+        return this.each(function(){
+            var el = this;
+            var $el = $(this);
+
+            // handle .val(''), .val(null), .val(undefined)
+            if (!args[0] && $el.attr('placeholder')) {
+              el.value = $el.addClass(DEFAULTS.cssClass).attr('placeholder');
+              // handle .val('value')
+            } else {
+              $el.removeClass(DEFAULTS.cssClass);
+              $val.apply($el, args);
             }
-
-            return this.each(function(){
-                var el = this;
-                var $el = $(this);
-
-                // handle .val(''), .val(null), .val(undefined)
-                if (!args[0] && $el.attr('placeholder')) {
-                    el.value = $el.addClass(DEFAULTS.cssClass).attr('placeholder');
-
-                    // handle .val('value')
-                } else {
-                    $el.removeClass(DEFAULTS.cssClass);
-                    $val.apply($el, args);
-                }
-            });
-
-    };
-
+        });
+      };
         // new .val() function for modern browsers when normalize mode is on
     } else if (HAS_NATIVE_SUPPORT && DEFAULTS.normalize) {
-        $.fn.val = function () {
-            var args  = arguments;
-            var el = this[0];
-            if (!el) {
-                return;
+      $.fn.val = function () {
+          var args  = arguments;
+          var el = this[0];
+          if (!el) {
+            return;
+          }
+
+          // handle .val()
+          if (!args.length) {
+            return el.value;
+          }
+          return this.each(function(){
+            var el = this;
+            var $el = $(this);
+            // handle .val(''), .val(null), .val(undefined)
+            if (!args[0] && el._placeholder) {
+              $el.attr('placeholder', el._placeholder);
             }
 
-            // handle .val()
-            if (!args.length) {
-                return el.value;
-            }
-            return this.each(function(){
-                var el = this;
-                var $el = $(this);
-
-
-                // handle .val(''), .val(null), .val(undefined)
-                if (!args[0] && el._placeholder) {
-                    $el.attr('placeholder', el._placeholder);
-                }
-
-                $el.toggleClass(DEFAULTS.cssClass, !args[0]);
-
-                // handle .val('value')
-                $val.apply($el, args);
-
-            });
-        };
+            $el.toggleClass(DEFAULTS.cssClass, !args[0]);
+            // handle .val('value')
+            $val.apply($el, args);
+          });
+      };
     }
 
   // Placeholder Enhanced plugin
