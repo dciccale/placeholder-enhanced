@@ -44,55 +44,65 @@
    * jQuery method that uses .val()
    */
 
-  // new .val() function for unsupported browsers
-  if (!HAS_NATIVE_SUPPORT) {
-    $.fn.val = function () {
-      var el = this[0];
+    // new .val() function for unsupported browsers
+    if (!HAS_NATIVE_SUPPORT) {
+      $.fn.val = function () {
+        var args = arguments;
+        var el = this[0];
+        if (!el) { return; }
 
-      if (!el) {
-        return;
-      }
+        var $el = $(el);
 
-      // handle .val()
-      if (!arguments.length && ($.nodeName(el, 'input') || $.nodeName(el, 'textarea'))) {
-        return el.value === this.attr('placeholder') ? '' : el.value;
+        // handle .val()
+        if (!args.length){
+          if ($.nodeName(el, 'input') || $.nodeName(el, 'textarea')) {
+            return el.value === $el.attr('placeholder') ? '' : el.value;
+          } else{
+            $val.apply($el, args);
+          }
+        }
 
-      // handle .val(''), .val(null), .val(undefined)
-      } else if (!arguments[0] && this.attr('placeholder')) {
-        el.value = this.addClass(DEFAULTS.cssClass).attr('placeholder');
-        return this;
+        return this.each(function(){
+            var el = this;
+            var $el = $(this);
 
-      // handle .val('value')
-      } else {
-        this.removeClass(DEFAULTS.cssClass);
-        return $val.apply(this, arguments);
-      }
-    };
+            // handle .val(''), .val(null), .val(undefined)
+            if (!args[0] && $el.attr('placeholder')) {
+              el.value = $el.addClass(DEFAULTS.cssClass).attr('placeholder');
+              // handle .val('value')
+            } else {
+              $el.removeClass(DEFAULTS.cssClass);
+              $val.apply($el, args);
+            }
+        });
+      };
+        // new .val() function for modern browsers when normalize mode is on
+    } else if (HAS_NATIVE_SUPPORT && DEFAULTS.normalize) {
+      $.fn.val = function () {
+          var args  = arguments;
+          var el = this[0];
+          if (!el) {
+            return;
+          }
 
-  // new .val() function for modern browsers when normalize mode is on
-  } else if (HAS_NATIVE_SUPPORT && DEFAULTS.normalize) {
-    $.fn.val = function () {
-      var el = this[0];
+          // handle .val()
+          if (!args.length) {
+            return el.value;
+          }
+          return this.each(function(){
+            var el = this;
+            var $el = $(this);
+            // handle .val(''), .val(null), .val(undefined)
+            if (!args[0] && el._placeholder) {
+              $el.attr('placeholder', el._placeholder);
+            }
 
-      if (!el) {
-        return;
-      }
-
-      // handle .val()
-      if (!arguments.length) {
-        return el.value;
-
-      // handle .val(''), .val(null), .val(undefined)
-      } else if (!arguments[0] && el._placeholder) {
-        this.attr('placeholder', el._placeholder);
-      }
-
-      this.toggleClass(DEFAULTS.cssClass, !arguments[0]);
-
-      // handle .val('value')
-      return $val.apply(this, arguments);
-    };
-  }
+            $el.toggleClass(DEFAULTS.cssClass, !args[0]);
+            // handle .val('value')
+            $val.apply($el, args);
+          });
+      };
+    }
 
   // Placeholder Enhanced plugin
   $.fn[PLUGIN_NAME] = function (options) {
