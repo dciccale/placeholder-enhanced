@@ -1,4 +1,4 @@
-# Placeholder Enhanced 1.6.7
+# Placeholder Enhanced 1.6.8
 
 ### This jQuery Placeholder plugin is an enhanced polyfill for the HTML5 placeholder attribute.
 
