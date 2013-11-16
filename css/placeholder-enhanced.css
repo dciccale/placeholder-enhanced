@@ -1,26 +1,36 @@
 /*
- * jQuery Placeholder Enhanced 1.6.6
+ * jQuery Placeholder Enhanced 1.6.7
  * Copyright (c) 2013 Denis Ciccale (@tdecs)
  * Released under MIT license
  * https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt
-*/
+ */
 
 /*
  * You may change the name of the class
  * (remember changing it in the js file too)
-*/
+ */
 
 /* All browsers */
-.placeholder { 
-  color: #aaa; 
+.placeholder {
+  color: #aaa;
 }
 
 /* WebKit */
-::-webkit-input-placeholder { 
-  color: #aaa; 
+::-webkit-input-placeholder {
+  color: #aaa;
 }
 
-/* Firefox 4+ */
-:-moz-placeholder { 
-  color: #aaa; 
+/* Firefox 4 to 18 */
+:-moz-placeholder {
+  color: #aaa;
+}
+
+/* Firefox 19+ */
+::-moz-placeholder {
+  color: #aaa;
+}
+
+/* Internet Explorer 10+ */
+:-ms-input-placeholder {
+  color: #aaa;
 }
