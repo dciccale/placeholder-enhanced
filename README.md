@@ -7,9 +7,10 @@
 - Cross-browser & Cross-styling
 - Support for all input types, password, textarea, text, email, search, url, etc...
 - Robust: it heavely behave as the HTML5 placeholder defined in the specs
-- Normalize placeholder behaviour in modern browsers
+- Normalize placeholder behaviour in modern browsers (optional). This means the placeholder will
+  hide on input focus.
 - Fix jQuery.val() function to work as expected to set/get the value of inputs with placeholder
-- Lightweight: **890 bytes** minified & gzipped
+- Lightweight: **955 bytes** minified & gzipped
 
 *Requires jQuery 1.4.4 or higher*
 
@@ -53,7 +54,7 @@ If you want to destroy the plugin call:
 $('input[placeholder], textarea[placeholder]').placeholderEnhanced('destroy');
 ```
 
-It will automatically clean all what the plugin first created and only for the selected elements.
+It will automatically clean all what the plugin first created as if it was never initialized, only for the selected elements.
 
 ## CSS
 
@@ -66,10 +67,13 @@ See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/
 For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) **[online](http://dciccale.github.com/placeholder-enhanced/)**
 
 ## TODO
+
+These are not major tasks, but nice to have:
+
 - Create a [kimbo.js](http://kimbojs.com) plugin version.
 - Create a plain JavaScript version.
 - Create two separate versions.
-  - Version 1.x to give *full* cross-browser support and normalization.
+  - Version 1.x to give *full* cross-browser support and normalization. (current version)
   - Version 2.x only to normalize *modern browsers* placeholder behaviour.
 
 ## License
