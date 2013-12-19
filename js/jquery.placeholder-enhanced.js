@@ -110,9 +110,7 @@
       return this.each(function (i, el) {
         var $el = $(el);
         var settings = $.data(el, PLUGIN_NAME);
-        var placeholderTxt;
-
-        placeholderTxt = $el.attr('placeholder');
+        var placeholderTxt = $el.attr('placeholder');
 
         if (settings && placeholderTxt && isValidNode(el)) {
 
