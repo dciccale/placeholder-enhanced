@@ -89,7 +89,10 @@
       var placeholderTxt;
 
       if (!el) {
-        return;
+        if (!args.length) {
+          return;
+        }
+        return this;
       }
 
       // Handle .val()
@@ -139,7 +142,7 @@
       var el = this[0];
 
       if (!el) {
-        return;
+        return this;
       }
 
       // Handle .val()
