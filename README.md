@@ -66,6 +66,22 @@ See [placeholder-enhanced.css](https://github.com/dciccale/placeholder-enhanced/
 
 For a demo see [demo.html](https://github.com/dciccale/placeholder-enhanced/blob/master/demo.html) **[online](http://dciccale.github.com/placeholder-enhanced/)**
 
+## Build
+
+If you want to work on the plugin there is a Makefile with two targets:
+
+To lint with jshint
+
+```sh
+$ make lint
+```
+
+Minify the js file
+
+```sh
+$ make build
+```
+
 ## TODO
 
 These are not major tasks, but nice to have:
