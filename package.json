@@ -1,0 +1,10 @@
+{
+  "name": "placeholder-enhanced",
+  "version": "1.6.4",
+  "description": "This jQuery Placeholder plugin is an enhanced polyfill for the HTML5 placeholder attribute.",
+  "private": true,
+  "devDependencies": {
+    "jshint": "^2.8.0",
+    "uglify-js": "^2.4.23"
+  }
+}

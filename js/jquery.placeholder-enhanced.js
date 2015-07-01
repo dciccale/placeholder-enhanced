@@ -10,9 +10,11 @@
 
   var PLUGIN_NAME = 'placeholderEnhanced';
 
+  var input = doc.createElement('input');
+  var textarea = doc.createElement('textarea');
+
   // Check for support
-  var HAS_NATIVE_SUPPORT = 'placeholder' in doc.createElement('input') &&
-    'placeholder' in doc.createElement('textarea');
+  var HAS_NATIVE_SUPPORT = 'placeholder' in input && 'placeholder' in textarea;
 
   // Event namespaces
   var EVENT = {
