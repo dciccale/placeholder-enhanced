@@ -1,10 +1,32 @@
 {
   "name": "placeholder-enhanced",
-  "version": "1.6.4",
+  "version": "1.6.9",
   "description": "This jQuery Placeholder plugin is an enhanced polyfill for the HTML5 placeholder attribute.",
-  "private": true,
+  "keywords": ["placeholder", "enhanced", "html5", "polyfill"],
+  "homepage": "https://github.com/dciccale/placeholder-enhanced",
+  "author": {
+    "name": "Denis Ciccale",
+    "email": "dciccale@gmail.com",
+    "url": "http://twitter.com/tdecs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dciccale/placeholder-enhanced.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dciccale/placeholder-enhanced/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/dciccale/placeholder-enhanced/blob/master/LICENSE.txt"
+    }
+  ],
   "devDependencies": {
     "jshint": "^2.8.0",
     "uglify-js": "^2.4.23"
+  },
+  "dependencies": {
+    "jquery": ">=1.4.4"
   }
 }
