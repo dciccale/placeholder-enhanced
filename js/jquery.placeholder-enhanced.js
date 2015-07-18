@@ -1,12 +1,13 @@
 /*!
  * jQuery Placeholder Enhanced 1.6.9
- * Copyright (c) 2013 Denis Ciccale (@tdecs)
+ * Copyright (c) 2013-2015 Denis Ciccale (@tdecs)
  * Released under MIT license
  * https://raw.github.com/dciccale/placeholder-enhanced/master/LICENSE.txt
  */
 
 /* jshint jquery: true */
 (function ($, doc) {
+  'use strict';
 
   var PLUGIN_NAME = 'placeholderEnhanced';
 
