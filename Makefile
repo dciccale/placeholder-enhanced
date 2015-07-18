@@ -1,10 +1,16 @@
 # vim: ts=4 sw=4 noexpandtab
-SHELL  := /bin/bash
+SHELL := /bin/bash
+LICENSE_SHORT := "/*! jQuery Placeholder Enhanced 1.6.9 | @tdecs | under the MIT license */"
+BIN := ./node_modules/.bin
+INPUT := ./js/jquery.placeholder-enhanced.js
+OUTPUT := ./js/jquery.placeholder-enhanced.min.js
 
 build:
-	@node ./node_modules/.bin/uglifyjs ./js/jquery.placeholder-enhanced.js -c -m -o ./js/jquery.placeholder-enhanced.min.js
+	@rm ${OUTPUT}
+	@echo ${LICENSE_SHORT} > ${OUTPUT}
+	@node ${BIN}/uglifyjs ${INPUT} -c -m --comments >> ${OUTPUT}
 
 lint:
-	@node ./node_modules/.bin/jshint ./js/jquery.placeholder-enhanced.js
+	@node ${BIN}/jshint ${INPUT}
 
 .PHONY: lint
