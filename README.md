@@ -16,8 +16,11 @@
 
 ## Installation
 
-```sh
 ```
+bower install placeholder-enhanced
+```
+
+or download this repo
 
 ## Usage
 
