@@ -14,6 +14,11 @@
 
 *Requires jQuery 1.4.4 or higher*
 
+## Installation
+
+```sh
+```
+
 ## Usage
 
 Just include the js file after jQuery on your HTML page and the plugin will be automatically initialized
