@@ -92,7 +92,10 @@
       var placeholderTxt;
 
       if (!el) {
-        return;
+        if (!args.length) {
+          return;
+        }
+        return this;
       }
 
       // Handle .val()
@@ -119,7 +122,12 @@
 
           // Handle .val(''), .val(null), .val(undefined)
           if (!args[0] && el.value !== placeholderTxt) {
-            el.value = $el.addClass(settings.cssClass).attr('placeholder');
+            if ($el.is(':focus')) {
+              //do not show the fake placeholder if the element already has focus
+              el.value = args[0];
+            } else {
+              el.value = $el.addClass(settings.cssClass).attr('placeholder');
+            }
 
           // Handle .val('value')
           } else if (args[0]) {
@@ -142,7 +150,7 @@
       var el = this[0];
 
       if (!el) {
-        return;
+        return this;
       }
 
       // Handle .val()
@@ -159,7 +167,7 @@
         if (settings && placeholderTxt && isValidNode(el)) {
 
           // Handle .val(''), .val(null), .val(undefined)
-          if (!args[0] && el.value !== placeholderTxt) {
+          if (!args[0] && el.value !== placeholderTxt && !$el.is(':focus')) {
 
             // Restore the placeholder
             $el.addClass(settings.cssClass).attr('placeholder', placeholderTxt);
