@@ -1,0 +1,28 @@
+{
+  "name": "placeholder-enhanced",
+  "version": "1.6.9",
+  "homepage": "http://dciccale.github.com/placeholder-enhanced",
+  "authors": [
+    "Denis Ciccale <dciccale@gmail.com>"
+  ],
+  "description": "Placeholder Enhanced enhance the use of HTML5 placeholder attribute providing cross-browser support & styling",
+  "main": "js/jquery.placeholder-enhanced.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "jquery",
+    "placeholder",
+    "input"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "css/demo.css",
+    "demo.html"
+  ]
+}
